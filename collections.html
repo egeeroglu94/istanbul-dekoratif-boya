@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koleksiyonlar | İstanbul Dekoratif Boya</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400&display=swap"
+        rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Collections Page Specific Overrides */
+        .collections-hero {
+            height: 40vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: url('images/hero_cinematic_background.png') no-repeat center center/cover;
+            position: relative;
+        }
+
+        .collections-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .collections-hero h1 {
+            position: relative;
+            z-index: 2;
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: #fff;
+        }
+
+        .collections-grid-section {
+            padding: 5rem 0;
+            background: var(--bg-dark);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="cinematic-header">
+        <div class="brand-name">İSTANBUL DEKORATİF BOYA</div>
+        <nav class="cinematic-nav">
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="collections.html" class="active">Koleksiyon</a></li>
+                <li><a href="index.html#about">Atölye</a></li>
+                <li><a href="index.html#contact">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="collections-hero">
+            <h1>ATÖLYE KOLEKSİYONU</h1>
+        </section>
+
+        <section class="collections-grid-section">
+            <div class="container" style="max-width: 1300px; margin: 0 auto;">
+                <div class="gallery-grid">
+
+                    <!-- 1. Dekoratif Boya -->
+                    <div class="gallery-item">
+                        <img src="images/collection_alchemy.png" alt="Decorative Paint" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h3>DEKORATİF BOYA</h3>
+                            <p>Metalik & Oksidasyon Efektleri</p>
+                        </div>
+                    </div>
+
+                    <!-- 2. Dekoratif Sıva -->
+                    <div class="gallery-item">
+                        <img src="images/collection_venetian.png" alt="Decorative Plaster" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h3>DEKORATİF SIVA</h3>
+                            <p>Venedik & İtalyan Sıva</p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Lime Wash -->
+                    <div class="gallery-item">
+                        <img src="images/col_limewash.png" alt="Lime Wash" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h3>LIME WASH</h3>
+                            <p>Doğal & Mat Dokular</p>
+                        </div>
+                    </div>
+
+                    <!-- 4. Dekoratif Zemin -->
+                    <div class="gallery-item">
+                        <img src="images/col_flooring.png" alt="Decorative Flooring" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h3>DEKORATİF ZEMİN</h3>
+                            <p>Mikrobeton Zemin Sistemleri</p>
+                        </div>
+                    </div>
+
+                    <!-- 5. Mikro Beton (Previously Sculpted) -->
+                    <div class="gallery-item">
+                        <img src="images/collection_sculpted.png" alt="Microcement" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h3>MİKRO BETON</h3>
+                            <p>Brüt & Endüstriyel Duvarlar</p>
+                        </div>
+                    </div>
+
+                    <!-- 6. Altın ve Gümüş Varak -->
+                    <div class="gallery-item">
+                        <img src="images/col_leaf.png" alt="Gold & Silver Leaf" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h3>ALTIN & GÜMÜŞ VARAK</h3>
+                            <p>Sanatsal Varak Uygulamaları</p>
+                        </div>
+                    </div>
+
+                    <!-- 7. Mermer Efekti -->
+                    <div class="gallery-item">
+                        <img src="images/col_marble.png" alt="Marble Effect" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h3>MERMER EFEKTİ</h3>
+                            <p>Gerçekçi Mermer Dokusu</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Brief Contact Area -->
+        <section class="contact-section" style="padding: 5rem 0;">
+            <div class="contact-box" style="padding: 3rem 2rem;">
+                <h2>PROJENİZ İÇİN TEKLİF ALIN</h2>
+                <a href="index.html#contact" class="btn-cinematic" style="margin-top: 1rem;">İLETİŞİME GEÇİN</a>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container"
+                style="text-align: center; padding: 2rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                <p style="color: #666; font-size: 0.8rem;">&copy; 2024 ISTANBUL DEKORATIF BOYA. ALL RIGHTS RESERVED.</p>
+            </div>
+        </footer>
+
+    </main>
+</body>
+
+</html>

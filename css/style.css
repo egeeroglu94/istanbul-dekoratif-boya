@@ -1,0 +1,506 @@
+:root {
+    --bg-dark: #050505;
+    --bg-panel: #0a0a0a;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --accent-gold: #D4AF37;
+    --accent-gold-dim: #8a7020;
+
+    --font-display: 'Cinzel', serif;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+
+    --container-width: 1200px;
+}
+
+/* Metallic Gold Text Utility */
+.gold-metallic,
+.hero-surtitle,
+.section-title span,
+.step-content h3,
+.manifesto-text .highlight,
+.service-item h3,
+.gallery-overlay h3,
+/* Added this selector */
+.gallery-overlay p {
+    background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    /* Required for chrome to render bg clip correctly sometimes */
+    font-weight: 700;
+}
+
+/* Override specifics that were just colors before */
+.service-item h3 {
+    border-bottom: 1px solid var(--accent-gold-dim);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    color: transparent;
+    /* Fallback override */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+}
+
+/* Typography Overrides */
+h1,
+h2,
+h3 {
+    font-weight: 400;
+}
+
+/* Header (Transparent & Minimal) */
+.cinematic-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+}
+
+.brand-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.cinematic-nav ul {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+}
+
+.cinematic-nav a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s;
+}
+
+.cinematic-nav a:hover {
+    opacity: 1;
+    color: var(--accent-gold);
+    text-shadow: 0 0 10px var(--accent-gold-dim);
+}
+
+/* HERO SECTION - The Movie Scene */
+.cinematic-hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    /* Darken the image slightly to ensure text readability */
+    filter: brightness(0.6) contrast(1.1);
+    transform: scale(1.05);
+    /* Slight zoom for parallax feel */
+    animation: slowZoom 20s infinite alternate;
+}
+
+@keyframes slowZoom {
+    from {
+        transform: scale(1.05);
+    }
+
+    to {
+        transform: scale(1.15);
+    }
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 50%, #050505 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 2rem;
+}
+
+.hero-surtitle {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+}
+
+h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
+    text-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+}
+
+.glow-text {
+    color: var(--white);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(212, 175, 55, 0.4);
+}
+
+.btn-cinematic {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    font-weight: 300;
+    text-decoration: none;
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-size: 0.8rem;
+    transition: all 0.5s ease;
+    margin-top: 2.5rem;
+    border-radius: 50px;
+    /* Elegant pill shape */
+}
+
+.btn-cinematic:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+    letter-spacing: 0.3em;
+    /* Subtle expansion */
+    transform: translateY(-2px);
+}
+
+/* SCROLL CONTENT */
+.content-section {
+    position: relative;
+    background: var(--bg-dark);
+    padding: 10rem 0;
+    z-index: 5;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 8rem;
+    position: relative;
+}
+
+.section-title span {
+    display: block;
+    font-family: var(--font-body);
+    letter-spacing: 0.4em;
+    font-size: 0.75rem;
+    color: var(--accent-gold);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+.section-title h2 {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    color: var(--text-primary);
+    font-weight: 400;
+}
+
+/* Portfolio Grid */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    padding: 0 2rem;
+}
+
+.gallery-item {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    filter: brightness(0.7) grayscale(0.8);
+    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.gallery-item:hover .gallery-img {
+    filter: brightness(1.1) grayscale(0);
+    transform: scale(1.03);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.gallery-overlay h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-overlay p {
+    font-size: 0.8rem;
+    font-family: var(--font-body);
+    color: var(--accent-gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* Services Section */
+.services-section {
+    padding: 8rem 0;
+    background: #080808;
+    position: relative;
+}
+
+.services-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 4rem;
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.service-item h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--accent-gold-dim);
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.service-item p {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Process Section (Timeline) */
+.process-section {
+    padding: 10rem 0;
+    background: #050505;
+    text-align: center;
+}
+
+.process-steps {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    flex-wrap: wrap;
+    margin-top: 4rem;
+}
+
+.step {
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+    position: relative;
+}
+
+.step-number {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    color: rgba(212, 175, 55, 0.1);
+    /* Faint gold */
+    font-weight: 700;
+    position: absolute;
+    top: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+}
+
+.step-content {
+    position: relative;
+    z-index: 1;
+}
+
+.step-content h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+}
+
+.step-content p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Manifesto / About */
+.manifesto-section {
+    padding: 12rem 0;
+    background: radial-gradient(circle at center, #0f0f0f 0%, #050505 100%);
+    text-align: center;
+}
+
+.manifesto-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.manifesto-text {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    line-height: 1.6;
+    color: #ccc;
+    font-style: italic;
+}
+
+.manifesto-text .highlight {
+    color: var(--accent-gold);
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+/* Contact & Socials */
+.contact-section {
+    padding: 10rem 0 6rem;
+    background-color: #050505;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    text-align: center;
+}
+
+.contact-box {
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 5rem 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.contact-box h2 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.contact-box p {
+    color: #888;
+    margin-bottom: 4rem;
+    font-family: var(--font-body);
+}
+
+.location-info {
+    margin-top: 3rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.social-links {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.social-icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--text-secondary);
+    transition: fill 0.3s;
+}
+
+.social-icon:hover {
+    fill: var(--accent-gold);
+}
+
+/* Footer */
+footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 4rem 0;
+    text-align: center;
+    color: #444;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    .cinematic-header {
+        padding: 1.5rem;
+    }
+
+    .cinematic-nav {
+        display: none;
+    }
+
+    /* Hide nav on mobile for simplicity for now */
+}
