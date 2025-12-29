@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Değişim Stüdyosu | İstanbul Dekoratif Boya</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400&display=swap"
+        rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Temporary inline styles for studio layout until moved to css */
+        .studio-section {
+            padding-top: 120px;
+            padding-bottom: 50px;
+            min-height: 100vh;
+            background-color: #0a0a0a;
+            color: #fff;
+        }
+
+        .studio-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .studio-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .studio-title h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        .studio-title p {
+            font-family: 'Inter', sans-serif;
+            color: #aaa;
+        }
+
+        .studio-interface {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 700px;
+        }
+
+        .canvas-area {
+            background: #1a1a1a;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .controls-area {
+            background: #0f0f0f;
+            border-left: 1px solid #222;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 900px) {
+            .studio-interface {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .canvas-area {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="cinematic-header">
+        <div class="brand-name">İSTANBUL DEKORATİF BOYA</div>
+        <nav class="cinematic-nav">
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="collections.html">Koleksiyon</a></li>
+                <li><a href="references.html">Referanslar</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="ai-studio.html" class="active">AI Değişim</a></li>
+                <li><a href="index.html#contact">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="studio-section">
+            <div class="studio-container">
+                <div class="studio-title">
+                    <h1>AI DEĞİŞİM STÜDYOSU</h1>
+                    <p>Mekanınızın fotoğrafını yükleyin, dokuları duvarlarınızda deneyimleyin.</p>
+                </div>
+
+                <div class="studio-interface">
+                    <!-- Main Canvas Area -->
+                    <div class="canvas-area" id="canvasContainer">
+                        <div class="upload-placeholder" id="uploadPlaceholder">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                            <p style="color: #666; margin-top: 15px;">Fotoğraf Yükle veya Sürükle</p>
+                            <div class="button-group" style="display: flex; gap: 10px; margin-top: 20px;">
+                                <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/heic, .heic"
+                                    style="display: none;">
+                                <button id="uploadBtn" class="btn-cinematic"
+                                    style="font-size: 0.8rem; padding: 10px 20px;">FOTOĞRAF SEÇ</button>
+
+                            </div>
+                            <p style="font-size: 0.7rem; color: #555; margin-top: 10px;">JPG, PNG ve HEIC (iPhone)
+                                formatları desteklenir.</p>
+                        </div>
+                        <div id="imageWrapper"
+                            style="position: relative; display: none; width: 100%; height: 100%; justify-content: center; align-items: center;">
+                            <img id="mainImage"
+                                style="display: none; max-width: 100%; max-height: 100%; object-fit: contain;">
+                            <!-- Canvas for polygon drawing interaction -->
+                            <canvas id="maskCanvas"
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: crosshair; z-index: 20;"></canvas>
+                            <canvas id="textureCanvas"
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: multiply; opacity: 0.8; z-index: 10;"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Controls -->
+                    <div class="controls-area">
+                        <!-- Assistant Chat -->
+                        <div class="assistant-box"
+                            style="background: #1a1a1a; padding: 15px; border-radius: 6px; border: 1px solid #333; margin-bottom: 20px;">
+                            <h4 style="color: #d4af37; margin-bottom: 10px; font-size: 0.9rem;">ASİSTAN</h4>
+                            <p id="assistantText" style="font-size: 0.85rem; color: #ccc; line-height: 1.4;">
+                                Merhaba! Odanızın fotoğrafını yükleyerek başlayabiliriz. Dilerseniz sadece belirli bir
+                                duvarı seçip dokuyu oraya uygulayabilirsiniz.
+                            </p>
+                            <p id="statusMsg"
+                                style="font-size: 0.8rem; color: #888; margin-top: 10px; font-style: italic;"></p>
+
+                            <!-- Magic Texture Generator -->
+                            <div id="magicTextureBox"
+                                style="margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px;">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                    <h4 style="color: #d4af37; font-size: 0.9rem; margin: 0;">SİHİRLİ DOKU YARAT ✨</h4>
+                                    <button id="settingsBtn" title="API Anahtarı Ayarları"
+                                        style="background: none; border: none; color: #666; cursor: pointer; padding: 0;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                            <path
+                                                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <textarea id="magicPrompt"
+                                        placeholder="Hayalinizdeki dokuyu tarif edin (örn: Eski kırmızı tuğla duvar, altın damarlı yeşil mermer...)"
+                                        rows="3"
+                                        style="background: #222; border: 1px solid #444; color: #fff; padding: 8px; font-family: 'Inter', sans-serif; font-size: 0.8rem; resize: none; border-radius: 4px;"></textarea>
+                                    <button id="generateMagicBtn" class="btn-cinematic"
+                                        style="font-size: 0.75rem; padding: 8px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                                        <span>YARAT</span>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path
+                                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Masking Controls -->
+                            <div id="maskControls"
+                                style="display: none; margin-top: 15px; border-top: 1px solid #333; padding-top: 10px;">
+                                <p style="font-size: 0.8rem; color: #ffa500; margin-bottom: 8px;">DUVAR SEÇİM ARAÇLARI
+                                </p>
+                                <div style="display: flex; gap: 5px;">
+                                    <button id="startMaskBtn"
+                                        style="flex: 1; padding: 6px; background: #333; color: white; border: 1px solid #555; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">SEÇİME
+                                        BAŞLA</button>
+                                    <button id="clearMaskBtn"
+                                        style="flex: 1; padding: 6px; background: #333; color: white; border: 1px solid #555; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">TEMİZLE</button>
+                                </div>
+                                <p style="font-size: 0.7rem; color: #666; margin-top: 5px;">* Duvarın köşelerine
+                                    tıklayın, bitirmek için başladığınız yere dönün.</p>
+                            </div>
+                            <!-- Texture Properties -->
+                            <div id="textureControls"
+                                style="margin-top: 15px; border-top: 1px solid #333; padding-top: 10px;">
+                                <label style="font-size: 0.75rem; color: #aaa; display: block; margin-bottom: 5px;">DOKU
+                                    ÖLÇEĞİ</label>
+                                <input type="range" id="scaleSlider" min="0.1" max="2.0" step="0.1" value="0.5"
+                                    style="width: 100%; cursor: pointer;">
+                            </div>
+                        </div>
+
+                        <!-- Texture Catalog -->
+                        <div class="texture-catalog">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;">
+                                <h4 style="color: #fff; font-size: 0.9rem; margin: 0;">DOKU KOLEKSİYONU</h4>
+                                <div style="position: relative;">
+                                    <input type="file" id="customTextureUpload"
+                                        accept="image/png, image/jpeg, image/heic, .heic" style="display: none;">
+                                    <button id="uploadTextureBtn" class="btn-cinematic"
+                                        style="font-size: 0.7rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                        KENDİ DOKUNU YÜKLE
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="texture-grid"
+                                style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                                <!-- Will be populated by JS -->
+                                <div class="texture-item"
+                                    style="aspect-ratio: 1; background: #222; border: 1px solid #333;"></div>
+                                <div class="texture-item"
+                                    style="aspect-ratio: 1; background: #222; border: 1px solid #333;"></div>
+                                <div class="texture-item"
+                                    style="aspect-ratio: 1; background: #222; border: 1px solid #333;"></div>
+                                <div class="texture-item"
+                                    style="aspect-ratio: 1; background: #222; border: 1px solid #333;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 ISTANBUL DEKORATIF BOYA. ALL RIGHTS RESERVED.</p>
+        </footer>
+    </main>
+
+    <!-- API Key Modal -->
+    <div id="apiKeyModal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
+        <div
+            style="background: #1a1a1a; padding: 30px; border-radius: 12px; border: 1px solid #d4af37; width: 90%; max-width: 450px; text-align: center; box-shadow: 0 0 30px rgba(0,0,0,0.8);">
+            <div style="margin-bottom: 20px;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+            </div>
+            <h3 style="color: #fff; margin-bottom: 10px; font-family: 'Cinzel', serif;">AI Studio Erişimi</h3>
+            <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">
+                Daha iyi sonuçlar için <strong>Google Gemini</strong> veya <strong>OpenAI</strong> anahtarı
+                girebilirsiniz.<br>
+                <span style="color: #4cd964; font-weight: bold;">Anahtarınız yoksa ücretsiz devam edebilirsiniz.</span>
+            </p>
+
+            <input type="password" id="apiKeyInput" placeholder="Varsa API Anahtarınızı girin..."
+                style="width: 100%; padding: 12px; background: #222; border: 1px solid #444; color: white; border-radius: 6px; margin-bottom: 20px; font-family: monospace; font-size: 0.9rem; outline: none; transition: border-color 0.2s;">
+
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button id="saveKeyBtn"
+                    style="background: #d4af37; color: #000; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Inter', sans-serif; transition: transform 0.1s;">ANAHTARI
+                    KAYDET</button>
+                <button id="useFreeBtn"
+                    style="background: #333; color: #fff; border: 1px solid #555; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: 500; font-family: 'Inter', sans-serif; transition: background 0.2s;">ANAHTARSIZ
+                    (ÜCRETSİZ) DEVAM ET</button>
+            </div>
+
+            <p
+                style="margin-top: 20px; font-size: 0.75rem; color: #555; display: flex; justify-content: center; gap: 15px;">
+                <a href="https://aistudio.google.com/app/apikey" target="_blank"
+                    style="color: #666; text-decoration: underline;">Gemini Key Al (Ücretsiz)</a>
+                <a href="#" id="closeModalLink" style="color: #888; text-decoration: none;">Kapat</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- HEIC Conversion Library -->
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+    <script src="js/studio.js"></script>
+</body>
+
+</html>
